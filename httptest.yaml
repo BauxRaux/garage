@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: httptest
+  name: httptest
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: httptest
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: httptest
+    spec:
+      containers:
+        - image: httpd:2.4.61
+          name: httpd
